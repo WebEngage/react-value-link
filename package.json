@@ -1,0 +1,21 @@
+{
+    "name": "react-value-link",
+    "version": "0.0.1",
+    "description": "Defensive error handling in component lifecycle",
+    "main": "ValueLink.js",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mcmlxxxviii/react-value-link.git"
+    },
+    "keywords": [
+        "React",
+        "LinkedStateMixin"
+    ],
+    "author": "mcmlxxxviii",
+    "license": "WTFPL",
+    "bugs": {
+        "url": "https://github.com/mcmlxxxviii/react-value-link/issues"
+    },
+    "homepage": "https://github.com/mcmlxxxviii/react-value-link"
+}
