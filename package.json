@@ -1,21 +1,21 @@
 {
     "name": "react-value-link",
-    "version": "0.0.1",
-    "description": "Defensive error handling in component lifecycle",
+    "version": "0.0.2",
+    "description": "An alternate to React's LinkedStateMixin",
     "main": "ValueLink.js",
     "scripts": {},
     "repository": {
         "type": "git",
-        "url": "https://github.com/mcmlxxxviii/react-value-link.git"
+        "url": "https://github.com/WebEngage/react-value-link"
     },
     "keywords": [
         "React",
         "LinkedStateMixin"
     ],
-    "author": "mcmlxxxviii",
+    "author": "WebEngage",
     "license": "WTFPL",
     "bugs": {
-        "url": "https://github.com/mcmlxxxviii/react-value-link/issues"
+        "url": "https://github.com/WebEngage/react-value-link/issues"
     },
-    "homepage": "https://github.com/mcmlxxxviii/react-value-link"
+    "homepage": "https://github.com/WebEngage/react-value-link"
 }
