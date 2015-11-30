@@ -3,6 +3,13 @@ An alternate to `React.addons.LinkedStateMixin` with support for binding to any 
 See [facebook.github.io/react - Two-Way Binding Helpers](https://facebook.github.io/react/docs/two-way-binding-helpers.html)
 
 #### Usage
+Install it with `npm install --save react-value-link`
+
+...and then require it
+```js
+var ValueLink = require('react-value-link');
+```
+
 ```js
 var Hello = React.createClass({
    // unlike LinkedStateMixin, ValueLink is not a mixin
