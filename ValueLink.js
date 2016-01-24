@@ -30,6 +30,7 @@ function ValueLink(root, onChange) {
 
         for (i = 0; i < iu; i++) {
             if (!cursor.hasOwnProperty(path[i])) {
+                // is the next path element an integer?
                 if (Math.floor(path[i + 1]) === path[i + 1]) {
                     cursor[path[i]] = [];
                 } else {
@@ -51,7 +52,13 @@ function ValueLink(root, onChange) {
 
         link.value = resolve(path);
         link.requestChange = function(value) {
-            requestChange(path, value);
+            if(Object.prototype.toString.call(link.handleChange) === '[object Function]') {
+                link.handleChange(value, function(value) {
+                    requestChange(path, value);
+                });
+            } else {
+                requestChange(path, value);
+            }
         };
 
         return link;
