@@ -1,9 +1,10 @@
-var slice = Array.prototype.slice;
 
 function ValueLink(root, onChange) {
     var data = {
         root: root || {}
     };
+
+    var slice = Array.prototype.slice;
 
     function resolve(path) {
         var cursor = data,
