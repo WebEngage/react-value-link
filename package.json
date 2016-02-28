@@ -1,7 +1,7 @@
 {
     "name": "react-value-link",
     "version": "1.0.0",
-    "description": "An alternate to React's LinkedStateMixin",
+    "description": "An alternative to React's LinkedStateMixin",
     "main": "react-value-link.js",
     "scripts": {},
     "repository": {

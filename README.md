@@ -1,14 +1,84 @@
 # ValueLink
-An alternate to `React.addons.LinkedStateMixin` with support for binding to any data object (not necessarily the component's state).
-See [facebook.github.io/react - Two-Way Binding Helpers](https://facebook.github.io/react/docs/two-way-binding-helpers.html)
+An alternative to React's [LinkedStateMixin](https://www.npmjs.com/package/react-addons-linked-state-mixin) for [two way data bindings](https://facebook.github.io/react/docs/two-way-binding-helpers.html)
 
-#### Usage
-Install it with `npm install --save react-value-link`
 
-...and then require it
+### Advantages over LinkedStateMix
+- Support for binding any data object and not necessarily the component's state
+- Deep path based data bindings
+- Not a mixin so it just works with ES6 style React
+
+
+### Use it
+Install with npm
+```
+npm install --save react-value-link
+```
+...then require it (assumes a [frontend module bundler](http://www.slant.co/topics/3900/~frontend-javascript-module-bundlers))
 ```js
 var ValueLink = require('react-value-link');
 ```
+
+Or directly include on the page
+```html
+<script type="text/javascript" src="react-value-link.js"></script>
+```
+
+### API
+#### ValueLink(data, onChange)
+Returns a **link** associated to `data`
+
+###### Arguments
+`data` - object whose constituent values will be binded to `<input>` elements  
+`onChange` - callback called when `<input>` values change or when `requestChange()` is called explicity. It receives the changed `data` as first argument. 
+`onChange` is where you would usually update the store, trigger an action or mutate the component's state
+
+#### link
+A [functor](https://en.wikipedia.org/wiki/Function_object#In_JavaScript) used to create bindings or futher nested links. 
+Every link has an associated path. The link returned by `ValueLink` has an empty path and directly points to `data`
+
+A link is like `ReactLink` and similarly can be passed in the `valueLink` prop to React `<input>` elements to "bind" them with `data` at the associated path 
+```jsx
+<input ... valueLink={link} />
+```
+
+#### link(p1, [p2, [p3, [...]]])
+Extends the path from `link` with `p1`, `p2`, `p3`, `...` in that order and returns another link based of the extended path
+
+###### Arguments
+`p1`, `p2`, `p3`, `...` - string or integer property names 
+
+This is used to create nested links
+```js
+contactLink = link('contact');
+...
+nameLink    = contactLink('name');
+```
+
+#### link.value
+Is the value within `data` at **this** link's path or `null` if there are missing objects in the path
+
+#### link.requestChange(newValue)
+Sets `newValue` at **this** link's path within `data` and calls `onChange`. 
+Any missing objects in the path are automatically created if necessary
+
+#### link.handleChange
+A hook to intercept a `requestChange` call on **this** link. This is good for validating, transforming or invoking a related action.
+
+`link.handleChange` must be assigned a function accepting two arguments - `newValue` and `change`. `newValue` is the value passed to `requestChange()` 
+and `change` is a function similar to `requestChange` called with a value to set in `data` and then invoke `onChange`.  
+Note that you may pass a different value than what was passed in `requestChange()` 
+or not call `change` at all in which case no changes are made within `data`.
+
+```js
+link.handleChange = function(newValue, change) {
+    ...
+
+    change(newValue);
+};
+```
+
+
+### Example
 
 ```js
 var Hello = React.createClass({
@@ -25,12 +95,7 @@ var Hello = React.createClass({
    },
    render: function() {
        var that = this;
-       /*
-        * ValueLink(data, onChange)
-        *     data - object whose constituent values need to be binded to <input> elements
-        *     onChange - a callback that is called when anything changes within data and which is passed the changed data object
-        *   returns a function that can be used to create bindings
-        */
+
        var link = ValueLink(this.state.values, function(values) { that.setState({values: values}) } );
 
        // a partial valueLink binding which can be sent (as props) to child components that understand only a sub portion of the data structure
