@@ -64,11 +64,7 @@ Any missing objects in the path are automatically created if necessary
 #### link.handleChange
 A hook to intercept a `requestChange` call on **this** link. This is good for validating, transforming or invoking a related action.
 
-`link.handleChange` must be assigned a function accepting two arguments - `newValue` and `change`. `newValue` is the value passed to `requestChange()` 
-and `change` is a function similar to `requestChange` called with a value to set in `data` and then invoke `onChange`.  
-Note that you may pass a different value than what was passed in `requestChange()` 
-or not call `change` at all in which case no changes are made within `data`.
-
+`link.handleChange` must be assigned a function accepting two arguments.
 ```js
 link.handleChange = function(newValue, change) {
     ...
@@ -76,6 +72,10 @@ link.handleChange = function(newValue, change) {
     change(newValue);
 };
 ```
+
+`newValue` - value passed to `requestChange()`  
+`change` - a function similar to `requestChange` called with a value to set in `data` and then invoke `onChange`. Note that you may pass a different value than what was passed in `requestChange()` 
+or not call `change` at all in which case no changes are made within `data`.
 
 
 ### Example
