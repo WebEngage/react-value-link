@@ -127,7 +127,7 @@ React.render(<Hello name="World" />, document.body);
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
- Copyright (C) 2015 WebEngage <opensource {at} webengage.com>
+ Copyright (C) 2015 WebEngage <geeks {at} webengage.com>
 
  Everyone is permitted to copy and distribute verbatim or modified
  copies of this license document, and changing it is allowed as long
