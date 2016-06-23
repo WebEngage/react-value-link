@@ -1,21 +1,21 @@
 {
-    "name": "react-value-link",
-    "version": "1.0.0",
-    "description": "An alternative to React's LinkedStateMixin",
-    "main": "react-value-link.js",
-    "scripts": {},
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/WebEngage/react-value-link"
-    },
-    "keywords": [
-        "React",
-        "LinkedStateMixin"
-    ],
-    "author": "WebEngage",
-    "license": "WTFPL",
-    "bugs": {
-        "url": "https://github.com/WebEngage/react-value-link/issues"
-    },
-    "homepage": "https://github.com/WebEngage/react-value-link"
+  "name": "react-value-link",
+  "version": "1.0.1",
+  "description": "An alternative to React's LinkedStateMixin",
+  "main": "react-value-link.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WebEngage/react-value-link"
+  },
+  "keywords": [
+    "React",
+    "LinkedStateMixin"
+  ],
+  "author": "WebEngage",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/WebEngage/react-value-link/issues"
+  },
+  "homepage": "https://github.com/WebEngage/react-value-link"
 }
