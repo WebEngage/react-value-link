@@ -1,12 +1,13 @@
 
-function ValueLink(root, onChange) {
+function ValueLink (root, onChange) {
     var data = {
         root: root || {}
     };
 
-    var slice = Array.prototype.slice;
+    var slice    = Array.prototype.slice,
+        toString = Object.prototype.toString;
 
-    function resolve(path) {
+    function resolve (path) {
         var cursor = data,
             i, iu = path.length - 1;
 
@@ -25,7 +26,11 @@ function ValueLink(root, onChange) {
         }
     }
 
-    function requestChange(path, value) {
+    function _requestChange (link, path, value) {
+        if (toString.call(link.handleChange) === '[object Function]') {
+            return link.handleChange(value, function (value) { _requestChange(link, path, value) });
+        }
+
         var cursor = data,
             i, iu = path.length - 1;
 
@@ -46,21 +51,18 @@ function ValueLink(root, onChange) {
         onChange(data.root);
     }
 
-    function getLink(path) {
-        function link() {
+    function _onChange (link, element) {
+        link.requestChange(element.type === 'checkbox' ? element.checked : element.value);
+    }
+
+    function getLink (path) {
+        function link () {
             return getLink(path.concat(slice.call(arguments)));
         }
 
         link.value = resolve(path);
-        link.requestChange = function(value) {
-            if(Object.prototype.toString.call(link.handleChange) === '[object Function]') {
-                link.handleChange(value, function(value) {
-                    requestChange(path, value);
-                });
-            } else {
-                requestChange(path, value);
-            }
-        };
+        link.onChange = function(event) { _onChange(link, event.target) };
+        link.requestChange = function(value) { _requestChange(link, path, value) };
 
         return link;
     }
@@ -68,6 +70,6 @@ function ValueLink(root, onChange) {
     return getLink(['root']);
 }
 
-if(typeof module === 'object') {
+if (typeof module === 'object') {
     module.exports = ValueLink;
 }

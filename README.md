@@ -24,13 +24,13 @@ Or directly include on the page
 ```
 
 ### API
-#### ValueLink(data, onChange)
+#### ValueLink(data, onDataChange)
 Returns a **link** associated to `data`
 
 ###### Arguments
 `data` - object whose constituent values will be binded to `<input>` elements  
-`onChange` - callback called when `<input>` values change or when `requestChange()` is called explicity. It receives the changed `data` as first argument. 
-`onChange` is where you would usually update the store, trigger an action or mutate the component's state
+`onDataChange` - callback called when `<input>` values change or when `requestChange()` is called explicity. It receives the changed `data` as first argument. 
+`onDataChange` is where you would usually update the store, trigger an action or mutate the component's state
 
 #### link
 A [functor](https://en.wikipedia.org/wiki/Function_object#In_JavaScript) used to create bindings or futher nested links. 
@@ -58,8 +58,15 @@ nameLink    = contactLink('name');
 Is the value within `data` at **this** link's path or `null` if there are missing objects in the path
 
 #### link.requestChange(newValue)
-Sets `newValue` at **this** link's path within `data` and calls `onChange`. 
+Sets `newValue` at **this** link's path within `data` and calls `onDataChange`. 
 Any missing objects in the path are automatically created if necessary
+
+#### link.onChange
+Since React 15 deprecated ReactLink, `<input>` components no longer support the `valueLink` prop. You can still use this library with React 15 by passing the value and onChange props seperately  
+
+```jsx
+<input ... value={link.value} onChange={link.onChange} />
+```
 
 #### link.handleChange
 A hook to intercept a `requestChange` call on **this** link. This is good for validating, transforming or invoking a related action.
@@ -73,9 +80,9 @@ link.handleChange = function(newValue, change) {
 };
 ```
 
+###### Arguments
 `newValue` - value passed to `requestChange()`  
-`change` - a function similar to `requestChange` called with a value to set in `data` and then invoke `onChange`. Note that you may pass a different value than what was passed in `requestChange()` 
-or not call `change` at all in which case no changes are made within `data`.
+`change` - a function to set `newValue` or any other substitute in `data` and then invoke the `onDataChange` callback. You may decide to not call `change` at all in which case no changes are made to `data` and `onDataChange` is not invoked.
 
 
 ### Example
